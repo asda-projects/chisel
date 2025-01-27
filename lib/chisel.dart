@@ -5,7 +5,9 @@ library;
 
 import 'dart:io';
 
+import 'package:chisel/src/annotations.dart';
 import 'package:chisel/src/connection.dart';
+import 'package:chisel/src/model_template.dart';
 import 'package:chisel/src/schema_information.dart';
 import 'package:postgres/postgres.dart';
 
@@ -81,36 +83,50 @@ class Chisel {
   }
 
   Future<void> generateModels({String? outputDirectory}) async {
-
   String fallbackDirectory = outputDirectory ?? defaultOutputDirectory;
-
   await _ensureDirectoryExists(fallbackDirectory);
 
-  final tables = await getTables();
+  final tables = await introspectSchema();
 
   for (final table in tables) {
-    final columns = await getColumns(table);
+    final className = _toPascalCase(table.name);
+    final fields = table.columns.map((col) {
+      final annotations = <String>[];
 
-    // Convert table schema to Dart class
-    final className = _toPascalCase(table);
-    final fields = columns.map((col) => '  final ${_mapSqlTypeToDart(col['data_type'])} ${col['column_name']};').join('\n');
-    
-    final classContent = '''
-      class $className {
-        $fields
+      // Add @Column annotation
+      annotations.add(ModelGeneratorTemplates.columnAnnotation(col.name));
 
-        $className({${columns.map((col) => 'required this.${col['column_name']}').join(', ')}});
-
-        // Add CRUD and serialization methods here
+      // Add @ForeignKey annotation if applicable
+      if (col.foreignTable != null && col.foreignColumn != null) {
+        annotations.add(
+          ModelGeneratorTemplates.foreignKeyAnnotation(
+            foreignTable: col.foreignTable!,
+            foreignColumn: col.foreignColumn!,
+          ),
+        );
       }
-    ''';
 
-    // Write to file
+      return ModelGeneratorTemplates.fieldTemplate(
+        annotations: annotations,
+        type: col.type,
+        name: col.name,
+      );
+    }).join('\n');
+
+    final classContent = ModelGeneratorTemplates.classTemplate(
+      className: className,
+      fields: fields,
+      constructorParams: table.columns
+          .map((col) => 'required this.${col.name}')
+          .join(', '),
+    );
+
     final filePath = '$fallbackDirectory/$className.dart';
     await File(filePath).writeAsString(classContent);
   }
+}
 
-  }
+
 
   Future<List<String>> getTables({String schema = 'public'}) async {
   final query = InformationSchemaQueryBuilder.selectTables(schema: schema);
@@ -124,15 +140,33 @@ Future<List<Map<String, dynamic>>> getColumns(String table) async {
   return result;
 }
 
+Future<List<Map<String, dynamic>>> getForeignKeys(String table) async {
+
+  final query = InformationSchemaQueryBuilder.selectFK(tableName: table);
+  final result = await _connection.query(query);
+  return result;
+}
+
 Future<List<Table>> introspectSchema({String schema = 'public'}) async {
     final tables = await getTables(schema: schema);
     List<Table> schemaTables = [];
 
     for (var tableName in tables) {
       final columnsData = await getColumns(tableName);
+      final foreignKeys = await getForeignKeys(tableName);
+
       final columns = columnsData.map((col) {
-        final dartType = _mapSqlTypeToDart(col['data_type']);
-        return Column(name: col['column_name'], type: dartType);
+        final foreignKey = foreignKeys.firstWhere(
+          (fk) => fk['column_name'] == col['column_name'],
+          orElse: () => <String, dynamic>{}, // Return an empty map instead of null
+        );
+
+        return Column(
+          name: col['column_name'],
+          type: _mapSqlTypeToDart(col['data_type']),
+          foreignTable: foreignKey.isNotEmpty ? foreignKey['foreign_table'] : null,
+          foreignColumn: foreignKey.isNotEmpty ? foreignKey['foreign_column'] : null,
+        );
       }).toList();
 
       schemaTables.add(Table(name: tableName, columns: columns));
@@ -176,16 +210,4 @@ Future<List<Table>> introspectSchema({String schema = 'public'}) async {
 }
 
 
-class Table {
-  final String name;
-  final List<Column> columns;
 
-  Table({required this.name, required this.columns});
-}
-
-class Column {
-  final String name;
-  final String type;
-
-  Column({required this.name, required this.type});
-}

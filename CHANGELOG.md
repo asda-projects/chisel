@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 0 -->⛰️  Features
 
--  [2025-01-27 08:12]  Created a full step of mirroring the tables and column/fields type and test it ([cc7ce04](cc7ce041f058932738c50a240438aab467abdbac))
+-  [2025-01-27 09:19]  Add foreign key handling, model templates, and CRUD interface ([e474922](e47492282e4f671f947716a3cbf7468855c0c559))
+-  [2025-01-27 08:12]  Created a full step of mirroring the tables and column/fields type and test it ([ec44e4a](ec44e4aa53d54266fbbcc0aa9295517c9af21fb1))
 -  [2025-01-27 07:14]  Created first interface for testing connection ([fc7d7cb](fc7d7cb3521d19dbad6a34844857e9605d475bbb))
 -  [2025-01-27 06:56]  Added a separed module for querying string of tables and columns/fields ([12d8244](12d824430cfeb2dd41606d2afedb06ea53267e84))
 -  [2025-01-27 06:51]  Improved some function to be acessible ([5332d83](5332d83775f308026395f5b1b8b74e8c5b04bc45))
