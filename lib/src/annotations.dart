@@ -7,14 +7,24 @@ class Table {
 
 class Column {
   final String name;
-  final String type;
+  final String? type;
   final String? foreignTable;
   final String? foreignColumn;
 
-  Column({
+  const Column({
     required this.name,
     required this.type,
     this.foreignTable,
     this.foreignColumn,
+  });
+}
+
+class ForeignKey {
+  final String table;
+  final String column;
+
+  const ForeignKey({
+    required this.table,
+    required this.column,
   });
 }

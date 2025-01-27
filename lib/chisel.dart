@@ -94,7 +94,7 @@ class Chisel {
       final annotations = <String>[];
 
       // Add @Column annotation
-      annotations.add(ModelGeneratorTemplates.columnAnnotation(col.name));
+      annotations.add(ModelGeneratorTemplates.columnAnnotation(columnName:  col.name, columnType: col.type));
 
       // Add @ForeignKey annotation if applicable
       if (col.foreignTable != null && col.foreignColumn != null) {

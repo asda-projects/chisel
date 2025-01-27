@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 0 -->⛰️  Features
 
--  [2025-01-27 09:19]  Add foreign key handling, model templates, and CRUD interface ([e474922](e47492282e4f671f947716a3cbf7468855c0c559))
+-  [2025-01-27 09:33]  Modified  Column class to define a const constructor and created a ForeignKey class ([a765fd1](a765fd1293a81a1ba9d10cf1d51071fd90874785))
+-  [2025-01-27 09:19]  Add foreign key handling, model templates, and CRUD interface ([9f6816e](9f6816e559a9a86082cc48684bb0c1297b3731e9))
 -  [2025-01-27 08:12]  Created a full step of mirroring the tables and column/fields type and test it ([ec44e4a](ec44e4aa53d54266fbbcc0aa9295517c9af21fb1))
 -  [2025-01-27 07:14]  Created first interface for testing connection ([fc7d7cb](fc7d7cb3521d19dbad6a34844857e9605d475bbb))
 -  [2025-01-27 06:56]  Added a separed module for querying string of tables and columns/fields ([12d8244](12d824430cfeb2dd41606d2afedb06ea53267e84))

@@ -21,7 +21,7 @@ class $className {
   /// Template for a field with annotations
   static String fieldTemplate({
     required List<String> annotations,
-    required String type,
+    required String? type,
     required String name,
   }) {
     return '''
@@ -31,9 +31,11 @@ class $className {
   }
 
   /// Template for the @Column annotation
-  static String columnAnnotation(String columnName) {
-    return '@Column(name: "$columnName")';
-  }
+static String columnAnnotation({required String columnName, required String? columnType}) {
+  return columnType != null
+      ? '@Column(name: "$columnName", type: "$columnType")'
+      : '@Column(name: "$columnName")';
+}
 
   /// Template for the @ForeignKey annotation
   static String foreignKeyAnnotation({

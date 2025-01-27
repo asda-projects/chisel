@@ -15,6 +15,7 @@ doc/api/
 .env*
 
 test/context.dart
+lib/models/
 
 # Avoid committing generated Javascript files:
 *.dart.js
