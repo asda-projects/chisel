@@ -6,8 +6,13 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 0 -->⛰️  Features
 
--  [2025-01-27 06:51]  Improved some function to be acessible ([35f6c13](35f6c13933bbc0310c92d346bc2e53ad98086c5e))
+-  [2025-01-27 06:56]  Added a separed module for querying string of tables and columns/fields ([b66fee5](b66fee5ff4747a0093405506a8b54397097870f5))
+-  [2025-01-27 06:51]  Improved some function to be acessible ([5332d83](5332d83775f308026395f5b1b8b74e8c5b04bc45))
 -  [2025-01-27 05:25]  Implement SQL connection class ([a0a9aa5](a0a9aa5b0a0ac4bcd893146e4dac60ed689b443b))
+
+### <!-- 7 -->⚙️ Miscellaneous Tasks
+
+-  [2025-01-27 06:54]  Added postgres and logging lib on pubspec ([296b6af](296b6afd39b99a191b1aa9eaf2bef0953e60232c))
 
 ## [0.1.0] - 2025-01-27
 
