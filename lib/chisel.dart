@@ -3,9 +3,12 @@
 /// More dartdocs go here.
 library;
 
+import 'dart:io';
+
 import 'package:chisel/src/connection.dart';
 import 'package:chisel/src/schema_information.dart';
 import 'package:postgres/postgres.dart';
+
 
 export 'src/chisel_base.dart';
 
@@ -20,8 +23,10 @@ class Chisel {
   final String? database;
   final String? user;
   final String? password;
+  final ConnectionSettings settings;
 
   late SQLConnection _connection;
+  final String defaultOutputDirectory = 'lib/models';
 
   Chisel({
     this.databaseUrl,
@@ -30,6 +35,7 @@ class Chisel {
     this.database,
     this.user,
     this.password,
+    required this.settings
   }) {
     // Validate input to ensure either `databaseUrl` or connection parameters are provided
     if (databaseUrl == null &&
@@ -49,6 +55,7 @@ class Chisel {
         database: uri.path.substring(1), // Remove leading '/'
         user: uri.userInfo.split(':')[0],
         password: uri.userInfo.split(':')[1],
+        settings: settings
       );
     } else {
       // Use the provided connection parameters to initialize SQLConnection
@@ -58,6 +65,7 @@ class Chisel {
         database: database!,
         user: user!,
         password: password!,
+        settings: settings
       );
     }
 
@@ -65,9 +73,43 @@ class Chisel {
     await _connection.open(); // This establishes the connection
   }
 
-  Future<void> generateModels({String outputDirectory = 'lib/models/'}) async {
-    // Implement schema introspection and model generation here
-    // Use _connection to interact with the database
+  Future<void> _ensureDirectoryExists(String directoryPath) async {
+    final directory = Directory(directoryPath);
+    if (!directory.existsSync()) {
+      await directory.create(recursive: true);
+    }
+  }
+
+  Future<void> generateModels({String? outputDirectory}) async {
+
+  String fallbackDirectory = outputDirectory ?? defaultOutputDirectory;
+
+  await _ensureDirectoryExists(fallbackDirectory);
+
+  final tables = await getTables();
+
+  for (final table in tables) {
+    final columns = await getColumns(table);
+
+    // Convert table schema to Dart class
+    final className = _toPascalCase(table);
+    final fields = columns.map((col) => '  final ${_mapSqlTypeToDart(col['data_type'])} ${col['column_name']};').join('\n');
+    
+    final classContent = '''
+      class $className {
+        $fields
+
+        $className({${columns.map((col) => 'required this.${col['column_name']}').join(', ')}});
+
+        // Add CRUD and serialization methods here
+      }
+    ''';
+
+    // Write to file
+    final filePath = '$fallbackDirectory/$className.dart';
+    await File(filePath).writeAsString(classContent);
+  }
+
   }
 
   Future<List<String>> getTables({String schema = 'public'}) async {

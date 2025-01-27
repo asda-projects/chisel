@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 0 -->⛰️  Features
 
--  [2025-01-27 07:14]  Created first interface for testing connection ([ddc440e](ddc440ec59297953e4d202dd26c5d79b4b4d939e))
+-  [2025-01-27 08:12]  Created a full step of mirroring the tables and column/fields type and test it ([cc7ce04](cc7ce041f058932738c50a240438aab467abdbac))
+-  [2025-01-27 07:14]  Created first interface for testing connection ([fc7d7cb](fc7d7cb3521d19dbad6a34844857e9605d475bbb))
 -  [2025-01-27 06:56]  Added a separed module for querying string of tables and columns/fields ([12d8244](12d824430cfeb2dd41606d2afedb06ea53267e84))
 -  [2025-01-27 06:51]  Improved some function to be acessible ([5332d83](5332d83775f308026395f5b1b8b74e8c5b04bc45))
 -  [2025-01-27 05:25]  Implement SQL connection class ([a0a9aa5](a0a9aa5b0a0ac4bcd893146e4dac60ed689b443b))

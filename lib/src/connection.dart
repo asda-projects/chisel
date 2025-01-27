@@ -45,7 +45,6 @@ class SQLConnection {
      );
     return result.map((row) => row.toColumnMap()).toList();
   }
-  
 
   Future<void> close() async {
     await _connection.close();
