@@ -47,7 +47,7 @@ Future<List<Map<String, dynamic>>> query(
 
     final sqlQuery = parameters != null ? Sql.named(sql) : sql;
 
-    Logger.debug('SQL Query: ${sqlQuery.toString()}', context: getCallerContext());
+    Logger.debug('SQL Query: $sql', context: getCallerContext());
     Logger.debug('Query Mode: $queryMode', context: getCallerContext());
     Logger.debug('Processed Parameters: $processedParameters', context: getCallerContext());
 

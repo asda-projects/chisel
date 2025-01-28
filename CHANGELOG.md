@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 0 -->⛰️  Features
 
--  [2025-01-28 08:59]  Improve Chisel database integration tests ([94549ab](94549ab1082e02e3cb4fca0bc22f276df3fc4f46))
+-  [2025-01-28 11:54]  Implement robust CRUD operations, logging, and testing framework ([99a362a](99a362ac7ad8a2c58130ace6f30e6423470af61b))
+-  [2025-01-28 08:59]  Improve Chisel database integration tests ([64f3b51](64f3b51da4c3a06b5eafd8875e04d3413d3ab0d6))
 -  [2025-01-28 08:55]  Added a line breaker to be more understandable the log msgs ([f54796a](f54796a566b14305a5a8bab1c65f668b312d0a7b))
 -  [2025-01-28 08:54]  Added a check if hasColums at Table to validate fields ([f82dbcf](f82dbcff103b3d631b409cc9329f9f18a2f7e917))
 -  [2025-01-28 08:52]  Created a initialize function to simplify the process of mirroring ([c8ef65f](c8ef65fed0ac1e522a70c3fb90f391a48923b38f))

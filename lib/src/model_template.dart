@@ -25,12 +25,20 @@ class $className extends ModelAdapter<$className> {
       ${_generateConstructorParams(fields)}
     );
   }
+
+  
+  Map<String, dynamic> toMap() {
+    return {
+      ${_generateToMapFields(fields)}
+    };
+  }
 }
 ''';
   }
 
+  /// Helper to remove the `final` keyword from field definitions.
   static String _removeFinalFromRequiredStringFields(String fields) {
-     return fields.replaceAll(RegExp(r'\bfinal\b\s*'), '');
+    return fields.replaceAll(RegExp(r'\bfinal\b\s*'), '');
   }
 
   /// Helper to generate the constructor parameters from field definitions.
@@ -45,6 +53,17 @@ class $className extends ModelAdapter<$className> {
         .join(',\n');
   }
 
+  /// Helper to generate the fields for the `toMap` method.
+  static String _generateToMapFields(String fields) {
+    return fields
+        .split('\n')
+        .where((line) => line.contains('final')) // Filter out only final field definitions
+        .map((line) {
+          final name = line.split(' ').last.replaceAll(';', '').trim();
+          return '"$name": $name';
+        })
+        .join(',\n');
+  }
 
   /// Template for generating a field with annotations.
   static String fieldTemplate({
