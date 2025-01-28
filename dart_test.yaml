@@ -1,0 +1,7 @@
+tags:
+  create: {}    # Define the 'create' tag
+  read: {}      # Define the 'read' tag
+  readAll: {}   # Define the 'readAll' tag
+  update: {}    # Define the 'update' tag
+  delete: {}    # Define the 'delete' tag
+  

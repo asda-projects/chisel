@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 0 -->⛰️  Features
 
--  [2025-01-27 09:33]  Modified  Column class to define a const constructor and created a ForeignKey class ([a765fd1](a765fd1293a81a1ba9d10cf1d51071fd90874785))
+-  [2025-01-28 06:01]  Created a logger for the whole lib ([566f5a5](566f5a5183fc6287e4e046caf72beafeae9d3c7a))
+-  [2025-01-27 09:33]  Modified  Column class to define a const constructor and created a ForeignKey class ([6c6b007](6c6b007b212fecfead2a593d4f5ef5df02500bc4))
 -  [2025-01-27 09:19]  Add foreign key handling, model templates, and CRUD interface ([9f6816e](9f6816e559a9a86082cc48684bb0c1297b3731e9))
 -  [2025-01-27 08:12]  Created a full step of mirroring the tables and column/fields type and test it ([ec44e4a](ec44e4aa53d54266fbbcc0aa9295517c9af21fb1))
 -  [2025-01-27 07:14]  Created first interface for testing connection ([fc7d7cb](fc7d7cb3521d19dbad6a34844857e9605d475bbb))
