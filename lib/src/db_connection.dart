@@ -1,3 +1,4 @@
+import 'package:chisel/src/logger.dart';
 import 'package:postgres/postgres.dart';
 
 class SQLConnection {
@@ -38,16 +39,29 @@ Future<List<Map<String, dynamic>>> query(
   QueryMode? queryMode,
   Duration? timeout,
   }) async {
-    // Process the parameters (named or positional)
+    
+    
     final processedParameters = _processQueryParameters(parameters);
+    
+    Logger.debug('${'=' * 20} NEW QUERY ${'=' * 20}', context: '');
+
+    final sqlQuery = parameters != null ? Sql.named(sql) : sql;
+
+    Logger.debug('SQL Query: ${sqlQuery.toString()}', context: getCallerContext());
+    Logger.debug('Query Mode: $queryMode', context: getCallerContext());
+    Logger.debug('Processed Parameters: $processedParameters', context: getCallerContext());
 
     final result = await _connection.execute(
-      sql,
+      sqlQuery,
       parameters: processedParameters,
       ignoreRows: ignoreRows,
       queryMode: queryMode,
       timeout: timeout,
     );
+    
+    Logger.debug('Raw Result: $result', context: getCallerContext());
+    
+  
 
     return result.map((row) => row.toColumnMap()).toList();
   }
@@ -66,6 +80,7 @@ Future<List<Map<String, dynamic>>> query(
       return parameters.values.toList();
     }
   }
+
 
 
   Future<void> close() async {
