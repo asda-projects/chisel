@@ -52,7 +52,7 @@ class Logger {
 
     String context_ = context ?? "Unknown";  
 
-    final formattedMessage = '[$timestamp] [$levelName] [$context_] $message';
+    final formattedMessage = '[$timestamp] [$levelName] [$context_] $message\n\n';
 
     if (stdout.hasTerminal) {
       print('$color$formattedMessage$_colorReset');

@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 0 -->⛰️  Features
 
--  [2025-01-28 08:54]  Added a check if hasColums at Table to validate fields ([0e5ddbb](0e5ddbb316a7d5c3a915b8b7028b5b68d5870365))
+-  [2025-01-28 08:55]  Added a line breaker to be more understandable the log msgs ([bd814bd](bd814bd5e76a09fba08a455226506d05f383e844))
+-  [2025-01-28 08:54]  Added a check if hasColums at Table to validate fields ([f82dbcf](f82dbcff103b3d631b409cc9329f9f18a2f7e917))
 -  [2025-01-28 08:52]  Created a initialize function to simplify the process of mirroring ([c8ef65f](c8ef65fed0ac1e522a70c3fb90f391a48923b38f))
 -  [2025-01-28 06:01]  Created a logger for the whole lib ([2411141](2411141cba289b9285538316ac39d3fb9d124b03))
 -  [2025-01-27 09:33]  Modified  Column class to define a const constructor and created a ForeignKey class ([6c6b007](6c6b007b212fecfead2a593d4f5ef5df02500bc4))
