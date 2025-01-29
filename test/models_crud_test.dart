@@ -5,7 +5,6 @@ import 'context.dart';
 
 import 'package:test/test.dart';
 
-
 void main() {
   group('Chisel Database Integration Tests', () {
     late Chisel chisel;

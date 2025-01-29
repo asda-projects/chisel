@@ -6,6 +6,19 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 0 -->⛰️  Features
 
+-  [2025-01-29 12:45]  **generateModels**:  Add forceUpdate to control regeneration behavior ([090bcc8](090bcc8e30bdf7dc2323149b5046f3061218ab81))
+
+### <!-- 7 -->⚙️ Miscellaneous Tasks
+
+-  [2025-01-29 13:12]  Update files for release 1.1.0 ([bb08171](bb0817191a884193f1b6dd9bea4ede9a46f471a4))
+-  [2025-01-29 07:15]  Added TODO.md in .gitignore ([6acba56](6acba56744fc2c01103a0a3d4eb74b1d6c50498a))
+
+## [1.0.0] - 2025-01-29
+
+[6603a51](6603a511607a161caf7ae9564a24aabbdea0d70a)...[1617afa](1617afa2afd83c3c4de801bacd8279f6dfbf69af)
+
+### <!-- 0 -->⛰️  Features
+
 -  [2025-01-28 11:54]  Implement robust CRUD operations, logging, and testing framework ([2f4ffa2](2f4ffa2a7c2f033e59a087072b5d1c265cfadf00))
 -  [2025-01-28 08:59]  Improve Chisel database integration tests ([64f3b51](64f3b51da4c3a06b5eafd8875e04d3413d3ab0d6))
 -  [2025-01-28 08:55]  Added a line breaker to be more understandable the log msgs ([f54796a](f54796a566b14305a5a8bab1c65f668b312d0a7b))
@@ -22,8 +35,13 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 7 -->⚙️ Miscellaneous Tasks
 
--  [2025-01-29 05:14]  **release**:  Finalize adjustments for v1.0.0 ([eb737a5](eb737a5e0d81d294c261a098f701f5d4888a2aab))
+-  [2025-01-29 05:14]  **release**:  Finalize adjustments for v1.0.0 ([28e1f07](28e1f079a8781ca9fb3dab9c717de5e2c221b10f))
+-  [2025-01-29 05:14]  **release**:  Finalize adjustments for v1.0.0 ([76eff1b](76eff1b5aaa08f1fd748a2c07daede95fa6af174))
 -  [2025-01-27 06:54]  Added postgres and logging lib on pubspec ([296b6af](296b6afd39b99a191b1aa9eaf2bef0953e60232c))
+
+### Release
+
+-  [2025-01-29 05:28]  V1.0.0 - Initial release of Chisel ([1617afa](1617afa2afd83c3c4de801bacd8279f6dfbf69af))
 
 ## [0.1.0] - 2025-01-27
 

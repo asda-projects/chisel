@@ -1,5 +1,5 @@
-
 import 'package:chisel/chisel.dart';
+import 'package:chisel/models/defaultdb/auth_user.dart';
 
 import 'package:postgres/postgres.dart';
 
@@ -7,11 +7,12 @@ void main() async {
   // Initialize Chisel with PostgreSQL connection details
   final chisel = Chisel(
     host: 'localhost', // Replace with your database host
-    port: 5432,        // Replace with your database port
+    port: 5432, // Replace with your database port
     database: 'example_db', // Replace with your database name
-    user: 'user',          // Replace with your username
-    password: 'password',  // Replace with your password
-    settings: ConnectionSettings(sslMode: SslMode.require), // Adjust SSL settings as needed
+    user: 'user', // Replace with your username
+    password: 'password', // Replace with your password
+    settings: ConnectionSettings(
+        sslMode: SslMode.require), // Adjust SSL settings as needed
   );
 
   // Connect to the database and introspect the schema
@@ -22,15 +23,14 @@ void main() async {
   // Generate models based on the database schema
   print('Generating models...');
   await chisel.generateModels();
-  
 
   // Example of using a generated model (e.g., `AuthUser`)
   // Ensure you import the generated model in your application
   final userNickname = 'johndoe';
 
   // IMPORTANT:
-  // - After provide the "Map<String, dynamic> parameters" field, 
-  //    you need provide a field "String fieldIfcreated" to validate 
+  // - After provide the "Map<String, dynamic> parameters" field,
+  //    you need provide a field "String fieldIfcreated" to validate
   //    if it was really created, preferably a unique field.
   // - Due to lib dependencies problems it was a temporary workaround.
   // - The example below used "email".
