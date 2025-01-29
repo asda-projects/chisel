@@ -13,12 +13,7 @@ import 'package:chisel/src/model_template.dart';
 import 'package:chisel/src/schema_information.dart';
 import 'package:postgres/postgres.dart';
 
-
 export 'src/chisel_base.dart';
-
-
-
-
 
 class Chisel {
   final String? databaseUrl;
@@ -34,18 +29,21 @@ class Chisel {
   final String defaultOutputDirectory = 'lib/models';
   final Map<String, Table> schemaCache = {};
 
-  Chisel({
-    this.databaseUrl,
-    this.host,
-    this.port,
-    this.database,
-    this.user,
-    this.password,
-    required this.settings
-  }) {
+  Chisel(
+      {this.databaseUrl,
+      this.host,
+      this.port,
+      this.database,
+      this.user,
+      this.password,
+      required this.settings}) {
     // Validate input to ensure either `databaseUrl` or connection parameters are provided
     if (databaseUrl == null &&
-        (host == null || port == null || database == null || user == null || password == null)) {
+        (host == null ||
+            port == null ||
+            database == null ||
+            user == null ||
+            password == null)) {
       throw ArgumentError(
           'You must provide either a valid databaseUrl or all connection parameters (host, port, database, user, password).');
     }
@@ -62,30 +60,28 @@ class Chisel {
       // Parse databaseUrl and initialize SQLConnection
       final uri = Uri.parse(databaseUrl!);
       instanceDBConnection = SQLConnection(
-        host: uri.host,
-        port: uri.port,
-        database: uri.path.substring(1), // Remove leading '/'
-        user: uri.userInfo.split(':')[0],
-        password: uri.userInfo.split(':')[1],
-        settings: settings
-      );
+          host: uri.host,
+          port: uri.port,
+          database: uri.path.substring(1), // Remove leading '/'
+          user: uri.userInfo.split(':')[0],
+          password: uri.userInfo.split(':')[1],
+          settings: settings);
     } else {
       // Use the provided connection parameters to initialize SQLConnection
       instanceDBConnection = SQLConnection(
-        host: host!,
-        port: port!,
-        database: database!,
-        user: user!,
-        password: password!,
-        settings: settings
-      );
+          host: host!,
+          port: port!,
+          database: database!,
+          user: user!,
+          password: password!,
+          settings: settings);
     }
 
     // Open the connection
     await instanceDBConnection.open(); // This establishes the connection
   }
 
-  void configureLogging({LogLevel level = LogLevel.debug, bool enable = true}) {
+  void configureLogging({LogLevel level = LogLevel.info, bool enable = true}) {
     Logger.setLevel(level);
     Logger.enableLogging(enable);
   }
@@ -97,87 +93,86 @@ class Chisel {
     }
   }
 
-  Future<void> generateModels({String? outputDirectory}) async {
-  String fallbackDirectory = outputDirectory ?? "$defaultOutputDirectory/$database";
-  await _ensureDirectoryExists(fallbackDirectory);
+  Future<void> generateModels() async {
+    String fallbackDirectory = "$defaultOutputDirectory/$database";
+    await _ensureDirectoryExists(fallbackDirectory);
 
-  final tables = await introspectSchema();
+    final tables = await introspectSchema();
 
-  for (final table in tables) {
-    final className = _toPascalCase(table.name);
-    final fields = table.columns.map((col) {
-      final annotations = <String>[];
+    for (final table in tables) {
+      final className = _toPascalCase(table.name);
+      final fields = table.columns.map((col) {
+        final annotations = <String>[];
 
-      // Add @Column annotation
-      annotations.add(ModelGeneratorTemplates.columnAnnotation(columnName:  col.name, columnType: col.type));
+        // Add @Column annotation
+        annotations.add(ModelGeneratorTemplates.columnAnnotation(
+            columnName: col.name, columnType: col.type));
 
-      // Add @ForeignKey annotation if applicable
-      if (col.foreignTable != null && col.foreignColumn != null) {
-        annotations.add(
-          ModelGeneratorTemplates.foreignKeyAnnotation(
-            foreignTable: col.foreignTable!,
-            foreignColumn: col.foreignColumn!,
-          ),
+        // Add @ForeignKey annotation if applicable
+        if (col.foreignTable != null && col.foreignColumn != null) {
+          annotations.add(
+            ModelGeneratorTemplates.foreignKeyAnnotation(
+              foreignTable: col.foreignTable!,
+              foreignColumn: col.foreignColumn!,
+            ),
+          );
+        }
+
+        return ModelGeneratorTemplates.fieldTemplate(
+          annotations: annotations,
+          type: col.type,
+          name: col.name,
         );
-      }
+      }).join('\n');
 
-      return ModelGeneratorTemplates.fieldTemplate(
-        annotations: annotations,
-        type: col.type,
-        name: col.name,
-      );
-    }).join('\n');
-
-    final classContent = ModelGeneratorTemplates.classTemplate(
-      tableName: table.name,
-      className: className,
-      fields: fields,
-      constructorParams: table.columns.map((col) {
+      final classContent = ModelGeneratorTemplates.classTemplate(
+        tableName: table.name,
+        className: className,
+        fields: fields,
+        constructorParams: table.columns.map((col) {
           return 'this.${col.name}';
           //final isAutoGenerated = col.isAutoGenerated; // Check if the field is auto-generated
-          
+
           //return isAutoGenerated ? 'this.${col.name}' : 'required this.${col.name}';
         }).join(', '),
       );
-    final filePath = '$fallbackDirectory/${_convertToUnderscoreCase(className)}.dart';
-    await File(filePath).writeAsString(classContent);
+      final filePath =
+          '$fallbackDirectory/${_convertToUnderscoreCase(className)}.dart';
+      await File(filePath).writeAsString(classContent);
+    }
   }
-}
 
   String _convertToUnderscoreCase(String className) {
-      String result = "";
-      for (int i = 0; i < className.length; i++) {
-        String char = className[i];
-        if (i > 0 && char == char.toUpperCase()) {
-          result += "_"; 
-        }
-        result += char.toLowerCase();
+    String result = "";
+    for (int i = 0; i < className.length; i++) {
+      String char = className[i];
+      if (i > 0 && char == char.toUpperCase()) {
+        result += "_";
       }
-      return result;
+      result += char.toLowerCase();
+    }
+    return result;
   }
 
-
-
   Future<List<String>> getTables({String schema = 'public'}) async {
-  final query = InformationSchemaQueryBuilder.selectTables(schema: schema);
-  final result = await instanceDBConnection.query(query);
-  return result.map((row) => row['table_name'] as String).toList();
-}
+    final query = InformationSchemaQueryBuilder.selectTables(schema: schema);
+    final result = await instanceDBConnection.query(query);
+    return result.map((row) => row['table_name'] as String).toList();
+  }
 
-Future<List<Map<String, dynamic>>> getColumns(String table) async {
-  final query = InformationSchemaQueryBuilder.selectColumns(tableName: table);
-  final result = await instanceDBConnection.query(query);
-  return result;
-}
+  Future<List<Map<String, dynamic>>> getColumns(String table) async {
+    final query = InformationSchemaQueryBuilder.selectColumns(tableName: table);
+    final result = await instanceDBConnection.query(query);
+    return result;
+  }
 
-Future<List<Map<String, dynamic>>> getForeignKeys(String table) async {
+  Future<List<Map<String, dynamic>>> getForeignKeys(String table) async {
+    final query = InformationSchemaQueryBuilder.selectFK(tableName: table);
+    final result = await instanceDBConnection.query(query);
+    return result;
+  }
 
-  final query = InformationSchemaQueryBuilder.selectFK(tableName: table);
-  final result = await instanceDBConnection.query(query);
-  return result;
-}
-
-Future<List<Table>> introspectSchema({String schema = 'public'}) async {
+  Future<List<Table>> introspectSchema({String schema = 'public'}) async {
     final tables = await getTables(schema: schema);
     List<Table> schemaTables = [];
 
@@ -186,19 +181,23 @@ Future<List<Table>> introspectSchema({String schema = 'public'}) async {
       final foreignKeys = await getForeignKeys(tableName);
 
       final columns = columnsData.map((col) {
-        final isAutoGenerated = col['column_default']?.contains('generated by default as identity') ?? false;
+        final isAutoGenerated = col['column_default']
+                ?.contains('generated by default as identity') ??
+            false;
         final foreignKey = foreignKeys.firstWhere(
           (fk) => fk['column_name'] == col['column_name'],
-          orElse: () => <String, dynamic>{}, // Return an empty map instead of null
+          orElse: () =>
+              <String, dynamic>{}, // Return an empty map instead of null
         );
 
         return Column(
-          name: col['column_name'],
-          type: _mapSqlTypeToDart(col['data_type']),
-          foreignTable: foreignKey.isNotEmpty ? foreignKey['foreign_table'] : null,
-          foreignColumn: foreignKey.isNotEmpty ? foreignKey['foreign_column'] : null,
-          isAutoGenerated: isAutoGenerated
-        );
+            name: col['column_name'],
+            type: _mapSqlTypeToDart(col['data_type']),
+            foreignTable:
+                foreignKey.isNotEmpty ? foreignKey['foreign_table'] : null,
+            foreignColumn:
+                foreignKey.isNotEmpty ? foreignKey['foreign_column'] : null,
+            isAutoGenerated: isAutoGenerated);
       }).toList();
 
       final table = Table(name: tableName, columns: columns);
@@ -214,22 +213,18 @@ Future<List<Table>> introspectSchema({String schema = 'public'}) async {
     return schemaCache[tableName];
   }
 
-
   String _mapSqlTypeToDart(String sqlType) {
     return TypeSwitcher.sqlToDart(sqlType);
   }
 
   String _toPascalCase(String input) {
-      return input.split('_').map((part) => part[0].toUpperCase() + part.substring(1)).join();
+    return input
+        .split('_')
+        .map((part) => part[0].toUpperCase() + part.substring(1))
+        .join();
   }
 
   Future<void> close() async {
     await instanceDBConnection.close();
   }
-
-
-
-
 }
-
-

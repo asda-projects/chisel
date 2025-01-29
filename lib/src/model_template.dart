@@ -45,24 +45,24 @@ class $className extends ModelAdapter<$className> {
   static String _generateConstructorParams(String fields) {
     return fields
         .split('\n')
-        .where((line) => line.contains('final')) // Filter out only final field definitions
+        .where((line) =>
+            line.contains('final')) // Filter out only final field definitions
         .map((line) {
-          final name = line.split(' ').last.replaceAll(';', '').trim();
-          return '$name: map["$name"]';
-        })
-        .join(',\n');
+      final name = line.split(' ').last.replaceAll(';', '').trim();
+      return '$name: map["$name"]';
+    }).join(',\n');
   }
 
   /// Helper to generate the fields for the `toMap` method.
   static String _generateToMapFields(String fields) {
     return fields
         .split('\n')
-        .where((line) => line.contains('final')) // Filter out only final field definitions
+        .where((line) =>
+            line.contains('final')) // Filter out only final field definitions
         .map((line) {
-          final name = line.split(' ').last.replaceAll(';', '').trim();
-          return '"$name": $name';
-        })
-        .join(',\n');
+      final name = line.split(' ').last.replaceAll(';', '').trim();
+      return '"$name": $name';
+    }).join(',\n');
   }
 
   /// Template for generating a field with annotations.
