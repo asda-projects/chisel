@@ -2,9 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### <!-- 7 -->⚙️ Miscellaneous Tasks
+
+-  [2025-01-29 07:15]  Added TODO.md in .gitignore ([d9bf70a](d9bf70af89c853d20c66a893b72151936e7f4b00))
+
 ## [1.0.0] - 2025-01-29
 
-[6603a51](6603a511607a161caf7ae9564a24aabbdea0d70a)...[76eff1b](76eff1b5aaa08f1fd748a2c07daede95fa6af174)
+[6603a51](6603a511607a161caf7ae9564a24aabbdea0d70a)...[1617afa](1617afa2afd83c3c4de801bacd8279f6dfbf69af)
 
 ### <!-- 0 -->⛰️  Features
 
@@ -24,8 +30,12 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 7 -->⚙️ Miscellaneous Tasks
 
--  [2025-01-29 05:14]  **release**:  Finalize adjustments for v1.0.0 ([76eff1b](76eff1b5aaa08f1fd748a2c07daede95fa6af174))
+-  [2025-01-29 05:14]  **release**:  Finalize adjustments for v1.0.0 ([28e1f07](28e1f079a8781ca9fb3dab9c717de5e2c221b10f))
 -  [2025-01-27 06:54]  Added postgres and logging lib on pubspec ([296b6af](296b6afd39b99a191b1aa9eaf2bef0953e60232c))
+
+### Release
+
+-  [2025-01-29 05:28]  V1.0.0 - Initial release of Chisel ([1617afa](1617afa2afd83c3c4de801bacd8279f6dfbf69af))
 
 ## [0.1.0] - 2025-01-27
 
