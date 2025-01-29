@@ -14,6 +14,12 @@ doc/api/
 # dotenv environment variables file
 .env*
 
+.chisel_generated
+
+# todo list
+
+TODO.md
+
 test/context.dart
 lib/models/
 

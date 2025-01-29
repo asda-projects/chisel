@@ -53,8 +53,9 @@ class TypeSwitcher {
     if (value is bool) return '$value'; //? 'TRUE' : 'FALSE';
     if (value is num) return value.toString();
     if (value is Map) return "'${value.toString().replaceAll("'", "''")}'";
-    if (value is Uint8List)
+    if (value is Uint8List) {
       return "E'\\\\x${value.map((b) => b.toRadixString(16).padLeft(2, '0')).join()}'";
+    }
     return "'${value.toString().replaceAll("'", "''")}'";
   }
 
