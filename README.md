@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://pub.dev/packages/chisel">
-    <img src="lib/assets/chisel.png" alt="Chisel Logo" width="100"/>
+    <img src="https://raw.githubusercontent.com/asda-projects/chisel/main/lib/assets/chisel.png" alt="Chisel Logo" width="100"/>
   </a>
 </p>
 
@@ -75,7 +75,6 @@ void main() async {
 ```
 
 ---
-
 ### Generating Models
 
 Chisel can introspect your database schema and generate models for each table. These models are placed in a directory under `lib/models/[database_name]`.
@@ -83,6 +82,17 @@ Chisel can introspect your database schema and generate models for each table. T
 ```dart
 await chisel.generateModels();
 ```
+
+By default, Chisel checks if models have already been generated to avoid unnecessary regeneration. If you need to force regeneration (e.g., after schema changes), you can use the `forceUpdate` parameter:
+
+```dart
+await chisel.generateModels(forceUpdate: true);
+```
+
+- **Default Behavior**: If models are already up-to-date, the generation process is skipped.
+- **Force Update**: Setting `forceUpdate` to `true` will regenerate models, even if they already exist.
+
+
 
 
 For example, if your database contains a table `auth_user`, Chisel generates a corresponding Dart model `AuthUser`. You can then import and use the model as follows:
