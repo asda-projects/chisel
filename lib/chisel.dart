@@ -3,6 +3,7 @@
 /// More dartdocs go here.
 library;
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:chisel/src/annotations.dart';
@@ -27,6 +28,7 @@ class Chisel {
   static late Chisel instance;
   late SQLConnection instanceDBConnection;
   final String defaultOutputDirectory = 'lib/models';
+  final String _metadataFilePath = '.chisel_generated';
   final Map<String, Table> schemaCache = {};
 
   Chisel(
@@ -93,7 +95,33 @@ class Chisel {
     }
   }
 
-  Future<void> generateModels() async {
+  Future<Map<String, dynamic>> _readMetadata(String filePath) async {
+    try {
+      final file = File(filePath);
+      if (!file.existsSync()) return {};
+      final content = await file.readAsString();
+      return jsonDecode(content) as Map<String, dynamic>;
+    } catch (e) {
+      return {}; // Return an empty map if the file cannot be read
+    }
+  }
+
+// Helper to write metadata
+  Future<void> _writeMetadata(
+      String filePath, Map<String, dynamic> metadata) async {
+    final file = File(filePath);
+    await file.writeAsString(jsonEncode(metadata));
+  }
+
+  Future<void> generateModels({bool forceUpdate = false}) async {
+    final metadata = await _readMetadata(_metadataFilePath);
+
+    if (!forceUpdate && metadata['modelsGenerated'] == true) {
+      Logger.info(
+          "Models are up-to-date. Use 'forceUpdate: true' in 'generateModels' to regenerate.",
+          context: getCallerContext());
+      return;
+    }
     String fallbackDirectory = "$defaultOutputDirectory/$database";
     await _ensureDirectoryExists(fallbackDirectory);
 
@@ -140,6 +168,9 @@ class Chisel {
           '$fallbackDirectory/${_convertToUnderscoreCase(className)}.dart';
       await File(filePath).writeAsString(classContent);
     }
+
+    metadata['modelsGenerated'] = true;
+    await _writeMetadata(_metadataFilePath, metadata);
   }
 
   String _convertToUnderscoreCase(String className) {

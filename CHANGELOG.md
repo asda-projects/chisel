@@ -2,9 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2025-01-29
+
+[1617afa](1617afa2afd83c3c4de801bacd8279f6dfbf69af)...[95bcf84](95bcf84b8c6cc0e76406bd231e13f62f69ff5b1a)
+
+### <!-- 0 -->⛰️  Features
+
+-  [2025-01-29 12:45]  **generateModels**:  Add forceUpdate to control regeneration behavior ([090bcc8](090bcc8e30bdf7dc2323149b5046f3061218ab81))
+
+### <!-- 7 -->⚙️ Miscellaneous Tasks
+
+-  [2025-01-29 13:17]  Merge release 1.1.0 into main ([95bcf84](95bcf84b8c6cc0e76406bd231e13f62f69ff5b1a))
+-  [2025-01-29 13:12]  Update files for release 1.1.0 ([c962829](c9628293ff3990c26def524db88f776b816ae80a))
+-  [2025-01-29 07:15]  Added TODO.md in .gitignore ([6acba56](6acba56744fc2c01103a0a3d4eb74b1d6c50498a))
+
 ## [1.0.0] - 2025-01-29
 
-[6603a51](6603a511607a161caf7ae9564a24aabbdea0d70a)...[76eff1b](76eff1b5aaa08f1fd748a2c07daede95fa6af174)
+[6603a51](6603a511607a161caf7ae9564a24aabbdea0d70a)...[1617afa](1617afa2afd83c3c4de801bacd8279f6dfbf69af)
 
 ### <!-- 0 -->⛰️  Features
 
@@ -24,8 +38,13 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 7 -->⚙️ Miscellaneous Tasks
 
+-  [2025-01-29 05:14]  **release**:  Finalize adjustments for v1.0.0 ([28e1f07](28e1f079a8781ca9fb3dab9c717de5e2c221b10f))
 -  [2025-01-29 05:14]  **release**:  Finalize adjustments for v1.0.0 ([76eff1b](76eff1b5aaa08f1fd748a2c07daede95fa6af174))
 -  [2025-01-27 06:54]  Added postgres and logging lib on pubspec ([296b6af](296b6afd39b99a191b1aa9eaf2bef0953e60232c))
+
+### Release
+
+-  [2025-01-29 05:28]  V1.0.0 - Initial release of Chisel ([1617afa](1617afa2afd83c3c4de801bacd8279f6dfbf69af))
 
 ## [0.1.0] - 2025-01-27
 
