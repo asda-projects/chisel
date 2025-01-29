@@ -41,18 +41,22 @@ class Logger {
   /// Log an error message
   static void error(String message, {Object? error, String? context}) {
     final errorDetails = error != null ? ' | Error: $error' : '';
-    _log(LogLevel.error, 'ERROR', '$message$errorDetails', _colorError, context: context);
+    _log(LogLevel.error, 'ERROR', '$message$errorDetails', _colorError,
+        context: context);
   }
 
   /// Internal method to log messages with automatic context
-  static void _log(LogLevel level, String levelName, String message, String color, {String? context}) {
+  static void _log(
+      LogLevel level, String levelName, String message, String color,
+      {String? context}) {
     if (!_isEnabled || _currentLevel.index > level.index) return;
 
     final timestamp = DateTime.now().toIso8601String();
 
-    String context_ = context ?? "Unknown";  
+    String context_ = context ?? "Unknown";
 
-    final formattedMessage = '[$timestamp] [$levelName] [$context_] $message\n\n';
+    final formattedMessage =
+        '[$timestamp] [$levelName] [$context_] $message\n\n';
 
     if (stdout.hasTerminal) {
       print('$color$formattedMessage$_colorReset');
@@ -60,21 +64,19 @@ class Logger {
       print(formattedMessage); // Fallback for non-terminal environments
     }
   }
-
-  
-  
 }
 
 String getCallerContext() {
   final stackTrace = StackTrace.current.toString().split('\n');
-  
+
   if (stackTrace.length > 2) {
     final frame = stackTrace[2]; // Get the caller frame
-    final match = RegExp(r'#\d+\s+(.+)\s\((.+):(\d+):(\d+)\)').firstMatch(frame);
+    final match =
+        RegExp(r'#\d+\s+(.+)\s\((.+):(\d+):(\d+)\)').firstMatch(frame);
     if (match != null) {
       final method = match.group(1); // Method name
-      final file = match.group(2);   // File name
-      final line = match.group(3);   // Line number
+      final file = match.group(2); // File name
+      final line = match.group(3); // Line number
       return '$method ($file:$line)';
     }
   }

@@ -2,29 +2,31 @@ import 'package:chisel/src/logger.dart';
 import 'package:chisel/src/map_types.dart';
 
 class QueryBuilder {
-  
-static String insert({
-  required String tableName,
-  required Map<String, dynamic> fields,
-  bool useExtendedQuery = false,
-}) {
-  final columns = fields.keys.join(', ');
+  static String insert({
+    required String tableName,
+    required Map<String, dynamic> fields,
+    bool useExtendedQuery = false,
+  }) {
+    final columns = fields.keys.join(', ');
 
-  // Handle named parameters or direct values
-  final values = _useExtendedQuery(fields, useExtendedQuery); // Direct values
+    // Handle named parameters or direct values
+    final values = _useExtendedQuery(fields, useExtendedQuery); // Direct values
 
-  
-  Logger.debug('Insert query generated for $tableName: Columns=[$columns], Values=[$values]', context: getCallerContext());
-  return "INSERT INTO $tableName ($columns) VALUES ($values);";
-}
+    Logger.debug(
+        'Insert query generated for $tableName: Columns=[$columns], Values=[$values]',
+        context: getCallerContext());
+    return "INSERT INTO $tableName ($columns) VALUES ($values);";
+  }
 
-  static String _useExtendedQuery(Map<String, dynamic> fields, bool useExtendedQuery) {
-      Logger.debug('Using Named Params: $useExtendedQuery', context: getCallerContext());
-      final values =  useExtendedQuery
-      ? fields.keys.map((key) => '@$key').join(', ') // Named placeholders
-      : fields.values.map(TypeSwitcher.dartToSqlValue).join(', ');
-      
-      return values;
+  static String _useExtendedQuery(
+      Map<String, dynamic> fields, bool useExtendedQuery) {
+    Logger.debug('Using Named Params: $useExtendedQuery',
+        context: getCallerContext());
+    final values = useExtendedQuery
+        ? fields.keys.map((key) => '@$key').join(', ') // Named placeholders
+        : fields.values.map(TypeSwitcher.dartToSqlValue).join(', ');
+
+    return values;
   }
 
   static String selectBy({
@@ -44,7 +46,8 @@ static String insert({
       return 'SELECT * FROM $tableName;';
     }
     final conditions = filters.entries.map((entry) {
-      final formattedValue = entry.value is String ? "'${entry.value}'" : entry.value;
+      final formattedValue =
+          entry.value is String ? "'${entry.value}'" : entry.value;
       return '${entry.key} = $formattedValue';
     }).join(' AND ');
     return 'SELECT * FROM $tableName WHERE $conditions;';
@@ -57,10 +60,12 @@ static String insert({
     required Map<String, dynamic> fields,
   }) {
     final updates = fields.entries.map((entry) {
-      final formattedValue = entry.value is String ? "'${entry.value}'" : entry.value;
+      final formattedValue =
+          entry.value is String ? "'${entry.value}'" : entry.value;
       return '${entry.key} = $formattedValue';
     }).join(', ');
-    final formattedFieldValue = fieldValue is String ? "'$fieldValue'" : fieldValue;
+    final formattedFieldValue =
+        fieldValue is String ? "'$fieldValue'" : fieldValue;
     return 'UPDATE $tableName SET $updates WHERE $fieldName = $formattedFieldValue;';
   }
 
@@ -110,19 +115,19 @@ static String insert({
   }
 
   static String deleteDependentRecordsByValue({
-  required String sourceTable,
-  required String sourceColumn,
-  required String targetTable,
-  required String targetFieldName,
-  required dynamic targetFieldValue,
-}) {
-  final formattedValue = targetFieldValue is String ? "'$targetFieldValue'" : targetFieldValue;
-  return '''
+    required String sourceTable,
+    required String sourceColumn,
+    required String targetTable,
+    required String targetFieldName,
+    required dynamic targetFieldValue,
+  }) {
+    final formattedValue =
+        targetFieldValue is String ? "'$targetFieldValue'" : targetFieldValue;
+    return '''
     DELETE FROM $sourceTable
     WHERE $sourceColumn IN (
       SELECT id FROM $targetTable WHERE $targetFieldName = $formattedValue
     );
   ''';
-}
-
+  }
 }

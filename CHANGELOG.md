@@ -2,11 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## [1.0.0] - 2025-01-29
+
+[6603a51](6603a511607a161caf7ae9564a24aabbdea0d70a)...[76eff1b](76eff1b5aaa08f1fd748a2c07daede95fa6af174)
 
 ### <!-- 0 -->⛰️  Features
 
--  [2025-01-28 11:54]  Implement robust CRUD operations, logging, and testing framework ([99a362a](99a362ac7ad8a2c58130ace6f30e6423470af61b))
+-  [2025-01-28 11:54]  Implement robust CRUD operations, logging, and testing framework ([2f4ffa2](2f4ffa2a7c2f033e59a087072b5d1c265cfadf00))
 -  [2025-01-28 08:59]  Improve Chisel database integration tests ([64f3b51](64f3b51da4c3a06b5eafd8875e04d3413d3ab0d6))
 -  [2025-01-28 08:55]  Added a line breaker to be more understandable the log msgs ([f54796a](f54796a566b14305a5a8bab1c65f668b312d0a7b))
 -  [2025-01-28 08:54]  Added a check if hasColums at Table to validate fields ([f82dbcf](f82dbcff103b3d631b409cc9329f9f18a2f7e917))
@@ -22,6 +24,7 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 7 -->⚙️ Miscellaneous Tasks
 
+-  [2025-01-29 05:14]  **release**:  Finalize adjustments for v1.0.0 ([76eff1b](76eff1b5aaa08f1fd748a2c07daede95fa6af174))
 -  [2025-01-27 06:54]  Added postgres and logging lib on pubspec ([296b6af](296b6afd39b99a191b1aa9eaf2bef0953e60232c))
 
 ## [0.1.0] - 2025-01-27

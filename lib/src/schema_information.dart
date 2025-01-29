@@ -33,10 +33,5 @@ class InformationSchemaQueryBuilder {
       tc.table_name = '$tableName'
       AND tc.constraint_type = 'FOREIGN KEY';
   ''';
-
   }
-
 }
-
-
-

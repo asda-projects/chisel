@@ -45,16 +45,17 @@ class TypeSwitcher {
     return isNullableValue.toLowerCase() == 'yes';
   }
 
-/// Converts Dart values to SQL-compatible strings for queries.
+  /// Converts Dart values to SQL-compatible strings for queries.
   static String dartToSqlValue(dynamic value) {
-  if (value == null) return 'NULL'; 
-  if (value is String) return "'${value.replaceAll("'", "''")}'"; 
-  if (value is DateTime) return "'${value.toIso8601String()}'";
-  if (value is bool) return '$value'; //? 'TRUE' : 'FALSE';
-  if (value is num) return value.toString();
-  if (value is Map) return "'${value.toString().replaceAll("'", "''")}'";
-  if (value is Uint8List) return "E'\\\\x${value.map((b) => b.toRadixString(16).padLeft(2, '0')).join()}'";
-  return "'${value.toString().replaceAll("'", "''")}'"; 
+    if (value == null) return 'NULL';
+    if (value is String) return "'${value.replaceAll("'", "''")}'";
+    if (value is DateTime) return "'${value.toIso8601String()}'";
+    if (value is bool) return '$value'; //? 'TRUE' : 'FALSE';
+    if (value is num) return value.toString();
+    if (value is Map) return "'${value.toString().replaceAll("'", "''")}'";
+    if (value is Uint8List)
+      return "E'\\\\x${value.map((b) => b.toRadixString(16).padLeft(2, '0')).join()}'";
+    return "'${value.toString().replaceAll("'", "''")}'";
   }
 
   /// Converts a map of Dart field values to SQL-compatible values.
