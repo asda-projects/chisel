@@ -4,11 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [1.2.2] - 2025-01-30
 
-[f70472a](f70472adc19fce776b2e2a451af3bf15403a1c6c)...[416066d](416066d598a767bc8e068cb486bb2287f0b214af)
+[f70472a](f70472adc19fce776b2e2a451af3bf15403a1c6c)...[c1ffcf9](c1ffcf97b067ec1f4a959d5216833427322d32d2)
 
 ### <!-- 1 -->🐛 Bug Fixes
 
--  [2025-01-30 12:32]  Export ChiselConnectionSettings for public use ([416066d](416066d598a767bc8e068cb486bb2287f0b214af))
+-  [2025-01-30 12:32]  Export ChiselConnectionSettings for public use ([2bec557](2bec5577ea5b3fa5390171800c8aa775f269ac74))
+
+### <!-- 7 -->⚙️ Miscellaneous Tasks
+
+-  [2025-01-30 12:40]  Fix logger formatting and remove unnecessary import ([c1ffcf9](c1ffcf97b067ec1f4a959d5216833427322d32d2))
 
 ## [1.2.1] - 2025-01-30
 

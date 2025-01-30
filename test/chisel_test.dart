@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:chisel/chisel.dart';
 import 'package:chisel/src/annotations.dart';
-import 'package:chisel/src/chisel_settings.dart';
 import 'package:chisel/src/logger.dart';
 
 import 'package:test/test.dart';

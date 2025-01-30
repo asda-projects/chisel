@@ -49,8 +49,9 @@ class Logger {
   static void _log(
       LogLevel level, String levelName, String message, String color,
       {String? context}) {
-    if (!_isEnabled || level.index < _currentLevel.index)
+    if (!_isEnabled || level.index < _currentLevel.index) {
       return; // Fix condition
+    }
 
     final timestamp = DateTime.now().toIso8601String();
     String context_ = context ?? "Unknown";
