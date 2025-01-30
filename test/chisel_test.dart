@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:chisel/chisel.dart';
 import 'package:chisel/src/annotations.dart';
+import 'package:chisel/src/chisel_settings.dart';
 import 'package:postgres/postgres.dart';
 import 'package:test/test.dart';
 
@@ -19,7 +20,7 @@ void main() {
           database: LocalVariables.database,
           user: LocalVariables.user,
           password: LocalVariables.password,
-          settings: ConnectionSettings(sslMode: SslMode.require));
+          settings: ChiselConnectionSettings(sslMode: SslMode.require));
 
       // Connect to the database
       await chisel.connect();

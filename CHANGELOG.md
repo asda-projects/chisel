@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [unreleased]
 
+### <!-- 0 -->⛰️  Features
+
+-  [2025-01-30 09:40]  Improve PostgreSQL dependency settings ([da6671e](da6671e1fe53c7ce1c84e0311d757b32f0a837f3))
+-  [2025-01-29 12:45]  **generateModels**:  Add forceUpdate to control regeneration behavior ([a9e0fc3](a9e0fc3e8557f3c347b6df60878771b1239d275c))
+
 ### <!-- 7 -->⚙️ Miscellaneous Tasks
 
--  [2025-01-29 07:15]  Added TODO.md in .gitignore ([d9bf70a](d9bf70af89c853d20c66a893b72151936e7f4b00))
+-  [2025-01-29 07:15]  Added TODO.md in .gitignore ([6acba56](6acba56744fc2c01103a0a3d4eb74b1d6c50498a))
 
 ## [1.0.0] - 2025-01-29
 
