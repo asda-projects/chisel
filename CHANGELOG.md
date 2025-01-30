@@ -2,17 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.0] - 2025-01-29
-
-[1617afa](1617afa2afd83c3c4de801bacd8279f6dfbf69af)...[95bcf84](95bcf84b8c6cc0e76406bd231e13f62f69ff5b1a)
+## [unreleased]
 
 ### <!-- 0 -->⛰️  Features
 
+-  [2025-01-30 09:40]  Improve PostgreSQL dependency settings ([c13e9f4](c13e9f4bc6fe7c488895fc9f69cc39e8e784cacc))
+-  [2025-01-29 12:45]  **generateModels**:  Add forceUpdate to control regeneration behavior ([a9e0fc3](a9e0fc3e8557f3c347b6df60878771b1239d275c))
 -  [2025-01-29 12:45]  **generateModels**:  Add forceUpdate to control regeneration behavior ([090bcc8](090bcc8e30bdf7dc2323149b5046f3061218ab81))
 
 ### <!-- 7 -->⚙️ Miscellaneous Tasks
 
--  [2025-01-29 13:17]  Merge release 1.1.0 into main ([95bcf84](95bcf84b8c6cc0e76406bd231e13f62f69ff5b1a))
+-  [2025-01-30 09:59]  Merge feature branch into development ([aeb6b1c](aeb6b1ce91445bb13aea971e29fbed7d32d3df5d))
+-  [2025-01-29 13:17]  Merge release 1.1.0 into main ([a811613](a811613ea552940fb73b82d6f588b8f4f493e38b))
 -  [2025-01-29 13:12]  Update files for release 1.1.0 ([c962829](c9628293ff3990c26def524db88f776b816ae80a))
 -  [2025-01-29 07:15]  Added TODO.md in .gitignore ([6acba56](6acba56744fc2c01103a0a3d4eb74b1d6c50498a))
 

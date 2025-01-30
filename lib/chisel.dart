@@ -96,32 +96,30 @@ class Chisel {
   }
 
   Future<Map<String, dynamic>> _readMetadata(String filePath) async {
-    try {
-      final file = File(filePath);
-      if (!file.existsSync()) return {};
-      final content = await file.readAsString();
-      return jsonDecode(content) as Map<String, dynamic>;
-    } catch (e) {
-      return {}; // Return an empty map if the file cannot be read
-    }
+  try {
+    final file = File(filePath);
+    if (!file.existsSync()) return {};
+    final content = await file.readAsString();
+    return jsonDecode(content) as Map<String, dynamic>;
+  } catch (e) {
+    return {}; // Return an empty map if the file cannot be read
   }
+}
 
 // Helper to write metadata
-  Future<void> _writeMetadata(
-      String filePath, Map<String, dynamic> metadata) async {
-    final file = File(filePath);
-    await file.writeAsString(jsonEncode(metadata));
-  }
+Future<void> _writeMetadata(String filePath, Map<String, dynamic> metadata) async {
+  final file = File(filePath);
+  await file.writeAsString(jsonEncode(metadata));
+}
 
   Future<void> generateModels({bool forceUpdate = false}) async {
     final metadata = await _readMetadata(_metadataFilePath);
 
-    if (!forceUpdate && metadata['modelsGenerated'] == true) {
-      Logger.info(
-          "Models are up-to-date. Use 'forceUpdate: true' in 'generateModels' to regenerate.",
+  if (!forceUpdate && metadata['modelsGenerated'] == true) {
+    Logger.info("Models are up-to-date. Use 'forceUpdate: true' in 'generateModels' to regenerate.",
           context: getCallerContext());
-      return;
-    }
+    return;
+  }
     String fallbackDirectory = "$defaultOutputDirectory/$database";
     await _ensureDirectoryExists(fallbackDirectory);
 
@@ -170,7 +168,7 @@ class Chisel {
     }
 
     metadata['modelsGenerated'] = true;
-    await _writeMetadata(_metadataFilePath, metadata);
+  await _writeMetadata(_metadataFilePath, metadata);
   }
 
   String _convertToUnderscoreCase(String className) {
