@@ -13,11 +13,11 @@ class Logger {
   static const _colorWarning = '\x1B[33m'; // Yellow
   static const _colorError = '\x1B[31m'; // Red
 
-/// Set the global log level
-static void setLevel(LogLevel level) {
-  print("🔍 Setting log level to: $level"); // Debug print
-  _currentLevel = level;
-}
+  /// Set the global log level
+  static void setLevel(LogLevel level) {
+    print("🔍 Setting log level to: $level"); // Debug print
+    _currentLevel = level;
+  }
 
   /// Enable or disable logging globally
   static void enableLogging(bool enable) {
@@ -46,21 +46,23 @@ static void setLevel(LogLevel level) {
         context: context);
   }
 
-    static void _log(
-        LogLevel level, String levelName, String message, String color,
-        {String? context}) {
-      if (!_isEnabled || level.index < _currentLevel.index) return; // Fix condition
+  static void _log(
+      LogLevel level, String levelName, String message, String color,
+      {String? context}) {
+    if (!_isEnabled || level.index < _currentLevel.index)
+      return; // Fix condition
 
-      final timestamp = DateTime.now().toIso8601String();
-      String context_ = context ?? "Unknown";
-      final formattedMessage = '[$timestamp] [$levelName] [$context_] $message\n\n';
+    final timestamp = DateTime.now().toIso8601String();
+    String context_ = context ?? "Unknown";
+    final formattedMessage =
+        '[$timestamp] [$levelName] [$context_] $message\n\n';
 
-      if (stdout.hasTerminal) {
-        print('$color$formattedMessage$_colorReset');
-      } else {
-        print(formattedMessage);
-      }
+    if (stdout.hasTerminal) {
+      print('$color$formattedMessage$_colorReset');
+    } else {
+      print(formattedMessage);
     }
+  }
 }
 
 String getCallerContext() {

@@ -1,6 +1,6 @@
 import 'package:chisel/chisel.dart';
 import 'package:chisel/models/defaultdb/auth_user.dart';
-import 'package:postgres/postgres.dart';
+
 import 'context.dart';
 
 import 'package:test/test.dart';
@@ -24,7 +24,7 @@ void main() {
       // Connect to the database
       await chisel.initialize();
       chisel.configureLogging();
-      
+
       user = await AuthUser().create({
         'last_login': DateTime.now().toIso8601String(),
         'date_joined': DateTime.now().toIso8601String(),

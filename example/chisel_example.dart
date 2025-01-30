@@ -1,8 +1,6 @@
 import 'package:chisel/chisel.dart';
 import 'package:chisel/models/defaultdb/auth_user.dart';
 
-import 'package:postgres/postgres.dart';
-
 void main() async {
   // Initialize Chisel with PostgreSQL connection details
   final chisel = Chisel(

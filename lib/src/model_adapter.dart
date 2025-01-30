@@ -106,7 +106,8 @@ abstract class ModelAdapter<T> {
     );
     final result = await _chisel.instanceDBConnection.query(query);
     if (result.isNotEmpty) {
-      Logger.info('Retrieved successfully from $tableName', context: getCallerContext());
+      Logger.info('Retrieved successfully from $tableName',
+          context: getCallerContext());
       return fromMap(result.first);
     }
     return null;
@@ -119,7 +120,8 @@ abstract class ModelAdapter<T> {
     final query =
         QueryBuilder.selectAll(tableName: tableName, filters: filters);
     final result = await _chisel.instanceDBConnection.query(query);
-    Logger.info('Retrieved All successfully from $tableName', context: getCallerContext());
+    Logger.info('Retrieved All successfully from $tableName',
+        context: getCallerContext());
     return result.map((row) => fromMap(row)).toList();
   }
 
@@ -149,37 +151,40 @@ abstract class ModelAdapter<T> {
     throw Exception('No rows returned after insertion.');
   }
 
-  Future<void> delete(String fieldName, dynamic fieldValue, {bool onCascade = true}) async {
+  Future<void> delete(String fieldName, dynamic fieldValue,
+      {bool onCascade = true}) async {
     _validateFields(fieldName);
-    
+
     try {
-      
-              // Step 1: Fetch dependent tables and relationships
+      // Step 1: Fetch dependent tables and relationships
       final dependenciesQuery = QueryBuilder.fetchDependencies(tableName);
       final dependencies =
           await _chisel.instanceDBConnection.query(dependenciesQuery);
 
       if (dependencies.isNotEmpty && !onCascade) {
-        Logger.warning('$fieldName has dependencies, use onCascade = true to delete them as well.', context: getCallerContext());
-        Logger.info('$fieldName dependencies: $dependencies', context: getCallerContext());
-      } 
+        Logger.warning(
+            '$fieldName has dependencies, use onCascade = true to delete them as well.',
+            context: getCallerContext());
+        Logger.info('$fieldName dependencies: $dependencies',
+            context: getCallerContext());
+      }
 
       if (onCascade) {
+        // Step 2: Delete dependent records
+        for (var dependency in dependencies) {
+          final sourceTable = dependency['source_table'];
+          final sourceColumn = dependency['source_column'];
 
-      // Step 2: Delete dependent records
-      for (var dependency in dependencies) {
-        final sourceTable = dependency['source_table'];
-        final sourceColumn = dependency['source_column'];
-
-        final deleteDependentQuery = QueryBuilder.deleteDependentRecordsByValue(
-          sourceTable: sourceTable,
-          sourceColumn: sourceColumn,
-          targetTable: tableName,
-          targetFieldName: fieldName,
-          targetFieldValue: fieldValue,
-        );
-        await _chisel.instanceDBConnection.query(deleteDependentQuery);
-      }
+          final deleteDependentQuery =
+              QueryBuilder.deleteDependentRecordsByValue(
+            sourceTable: sourceTable,
+            sourceColumn: sourceColumn,
+            targetTable: tableName,
+            targetFieldName: fieldName,
+            targetFieldValue: fieldValue,
+          );
+          await _chisel.instanceDBConnection.query(deleteDependentQuery);
+        }
       }
 
       // Step 3: Delete the primary record
@@ -189,8 +194,8 @@ abstract class ModelAdapter<T> {
         fieldValue: fieldValue,
       );
       await _chisel.instanceDBConnection.query(deletePrimaryQuery);
-      Logger.info('Deleted successfully from $tableName', context: getCallerContext());
-
+      Logger.info('Deleted successfully from $tableName',
+          context: getCallerContext());
     } catch (e) {
       throw Exception('Failed to delete record from $tableName.');
     }
@@ -219,7 +224,8 @@ abstract class ModelAdapter<T> {
       // Step 3: Delete all records from the primary table
       final deletePrimaryQuery = QueryBuilder.deleteAll(tableName: tableName);
       await _chisel.instanceDBConnection.query(deletePrimaryQuery);
-      Logger.info('Deleted All successfully from $tableName', context: getCallerContext());
+      Logger.info('Deleted All successfully from $tableName',
+          context: getCallerContext());
     } catch (e) {
       throw Exception('Failed to delete all records from $tableName.');
     }
