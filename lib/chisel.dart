@@ -14,6 +14,16 @@ import 'package:chisel/src/model_template.dart';
 import 'package:chisel/src/schema_information.dart';
 import 'package:postgres/postgres.dart';
 
+export 'package:postgres/postgres.dart' show 
+  ConnectionSettings, 
+  SslMode, 
+  ReplicationMode, 
+  QueryMode, 
+  TypeRegistry;
+
+export 'dart:convert' show Encoding;  // Needed for encoding settings
+export 'dart:io' show SecurityContext;  // Needed for SSL context
+
 export 'src/chisel_base.dart';
 
 class Chisel {
