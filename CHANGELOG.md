@@ -2,7 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## [1.2.2] - 2025-01-30
+
+[f70472a](f70472adc19fce776b2e2a451af3bf15403a1c6c)...[416066d](416066d598a767bc8e068cb486bb2287f0b214af)
+
+### <!-- 1 -->🐛 Bug Fixes
+
+-  [2025-01-30 12:32]  Export ChiselConnectionSettings for public use ([416066d](416066d598a767bc8e068cb486bb2287f0b214af))
+
+## [1.2.1] - 2025-01-30
+
+[1617afa](1617afa2afd83c3c4de801bacd8279f6dfbf69af)...[f70472a](f70472adc19fce776b2e2a451af3bf15403a1c6c)
 
 ### <!-- 0 -->⛰️  Features
 
@@ -13,7 +23,7 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 7 -->⚙️ Miscellaneous Tasks
 
--  [2025-01-30 12:02]  Prepared for  v1.2.1 ([b744a0c](b744a0cf8475d33c9e336d99b9310d9cd0e47d9a))
+-  [2025-01-30 12:02]  Prepared for  v1.2.1 ([f70472a](f70472adc19fce776b2e2a451af3bf15403a1c6c))
 -  [2025-01-30 11:49]  Improve logging, optimize schema caching, and refine model operations ([d6f6172](d6f6172adf2cbfdc574726b6072b213bd5eb1c55))
 -  [2025-01-30 09:59]  Merge feature branch into development ([f1a58f3](f1a58f39237a2ceedc7050401af12ac6f3a8f31c))
 -  [2025-01-29 13:17]  Merge release 1.1.0 into main ([a811613](a811613ea552940fb73b82d6f588b8f4f493e38b))

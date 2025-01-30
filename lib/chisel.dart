@@ -22,6 +22,9 @@ export 'dart:io' show SecurityContext; // Needed for SSL context
 
 export 'src/chisel_base.dart';
 
+export 'src/chisel_settings.dart' show ChiselConnectionSettings;
+
+
 class Chisel {
   final String? databaseUrl;
   final String? host;
