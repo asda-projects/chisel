@@ -68,6 +68,8 @@ class Chisel {
   }
 
   Future<void> connect() async {
+        Logger.info("Connecting...",
+          context: getCallerContext());
     if (databaseUrl != null) {
       // Parse databaseUrl and initialize SQLConnection
       final uri = Uri.parse(databaseUrl!);
@@ -123,6 +125,8 @@ Future<void> _writeMetadata(String filePath, Map<String, dynamic> metadata) asyn
 }
 
   Future<void> generateModels({bool forceUpdate = false}) async {
+        Logger.info("Generating Models...",
+          context: getCallerContext());
     final metadata = await _readMetadata(_metadataFilePath);
 
   if (!forceUpdate && metadata['modelsGenerated'] == true) {
@@ -133,9 +137,14 @@ Future<void> _writeMetadata(String filePath, Map<String, dynamic> metadata) asyn
     String fallbackDirectory = "$defaultOutputDirectory/$database";
     await _ensureDirectoryExists(fallbackDirectory);
 
-    final tables = await introspectSchema();
+    if (forceUpdate || schemaCache.isEmpty) {
 
-    for (final table in tables) {
+      schemaCache.clear(); // Ensure the cache is cleared if force updating
+      schemaCache.addAll({for (var table in await introspectSchema()) table.name: table});
+    }
+
+    
+    for (final table in schemaCache.values) {
       final className = _toPascalCase(table.name);
       final fields = table.columns.map((col) {
         final annotations = <String>[];
@@ -212,6 +221,8 @@ Future<void> _writeMetadata(String filePath, Map<String, dynamic> metadata) asyn
   }
 
   Future<List<Table>> introspectSchema({String schema = 'public'}) async {
+    Logger.info("Introspecting...",
+          context: getCallerContext());
     final tables = await getTables(schema: schema);
     List<Table> schemaTables = [];
 
