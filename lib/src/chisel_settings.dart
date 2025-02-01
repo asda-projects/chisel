@@ -6,7 +6,6 @@ class ChiselConnectionSettings extends ConnectionSettings {
     super.timeZone,
     super.encoding,
     super.sslMode,
-    super.transformer,
     super.replicationMode,
     super.typeRegistry,
     super.securityContext,

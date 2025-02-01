@@ -4,15 +4,39 @@ All notable changes to this project will be documented in this file.
 
 ## [unreleased]
 
+### <!-- 7 -->⚙️ Miscellaneous Tasks
+
+-  [2025-02-01 04:54]  Fixed merge in development that came from main ([4eeee49](4eeee4953d7da9990f58afda382910402c65fe35))
+
+## [1.2.2] - 2025-01-30
+
+[f70472a](f70472adc19fce776b2e2a451af3bf15403a1c6c)...[d910a96](d910a96f8923a818cd779e5b5f8a217bb6399ef9)
+
+### <!-- 1 -->🐛 Bug Fixes
+
+-  [2025-01-30 12:32]  Export ChiselConnectionSettings for public use ([2bec557](2bec5577ea5b3fa5390171800c8aa775f269ac74))
+
+### <!-- 7 -->⚙️ Miscellaneous Tasks
+
+-  [2025-01-30 12:40]  Fix logger formatting and remove unnecessary import ([d910a96](d910a96f8923a818cd779e5b5f8a217bb6399ef9))
+
+## [1.2.1] - 2025-01-30
+
+[1617afa](1617afa2afd83c3c4de801bacd8279f6dfbf69af)...[f70472a](f70472adc19fce776b2e2a451af3bf15403a1c6c)
+
 ### <!-- 0 -->⛰️  Features
 
+-  [2025-01-30 10:23]  Re-export PostgreSQL types for simplified user imports ([64ca626](64ca6265902458a3e82233ca7ff39ce205e8d7b4))
 -  [2025-01-30 09:40]  Improve PostgreSQL dependency settings ([c13e9f4](c13e9f4bc6fe7c488895fc9f69cc39e8e784cacc))
 -  [2025-01-29 12:45]  **generateModels**:  Add forceUpdate to control regeneration behavior ([a9e0fc3](a9e0fc3e8557f3c347b6df60878771b1239d275c))
 -  [2025-01-29 12:45]  **generateModels**:  Add forceUpdate to control regeneration behavior ([090bcc8](090bcc8e30bdf7dc2323149b5046f3061218ab81))
 
 ### <!-- 7 -->⚙️ Miscellaneous Tasks
 
--  [2025-01-30 09:59]  Merge feature branch into development ([aeb6b1c](aeb6b1ce91445bb13aea971e29fbed7d32d3df5d))
+-  [2025-01-30 12:02]  Prepared for  v1.2.1 ([f70472a](f70472adc19fce776b2e2a451af3bf15403a1c6c))
+-  [2025-01-30 11:49]  Improve logging, optimize schema caching, and refine model operations ([d6f6172](d6f6172adf2cbfdc574726b6072b213bd5eb1c55))
+-  [2025-01-30 09:59]  Merge feature branch into development ([f1a58f3](f1a58f39237a2ceedc7050401af12ac6f3a8f31c))
+-  [2025-01-30 09:59]  Merge feature branch into development ([de2c531](de2c531aa2e17f24835553beb301d2aa7a3e0500))
 -  [2025-01-29 13:17]  Merge release 1.1.0 into main ([a811613](a811613ea552940fb73b82d6f588b8f4f493e38b))
 -  [2025-01-29 13:12]  Update files for release 1.1.0 ([c962829](c9628293ff3990c26def524db88f776b816ae80a))
 -  [2025-01-29 07:15]  Added TODO.md in .gitignore ([6acba56](6acba56744fc2c01103a0a3d4eb74b1d6c50498a))

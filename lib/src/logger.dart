@@ -3,7 +3,7 @@ import 'dart:io';
 enum LogLevel { debug, info, warning, error, none }
 
 class Logger {
-  static LogLevel _currentLevel = LogLevel.debug;
+  static LogLevel _currentLevel = LogLevel.info;
   static bool _isEnabled = true;
 
   // ANSI color codes for terminal output
@@ -15,6 +15,7 @@ class Logger {
 
   /// Set the global log level
   static void setLevel(LogLevel level) {
+    print("🔍 Setting log level to: $level"); // Debug print
     _currentLevel = level;
   }
 
@@ -45,23 +46,22 @@ class Logger {
         context: context);
   }
 
-  /// Internal method to log messages with automatic context
   static void _log(
       LogLevel level, String levelName, String message, String color,
       {String? context}) {
-    if (!_isEnabled || _currentLevel.index > level.index) return;
+    if (!_isEnabled || level.index < _currentLevel.index) {
+      return; // Fix condition
+    }
 
     final timestamp = DateTime.now().toIso8601String();
-
     String context_ = context ?? "Unknown";
-
     final formattedMessage =
         '[$timestamp] [$levelName] [$context_] $message\n\n';
 
     if (stdout.hasTerminal) {
       print('$color$formattedMessage$_colorReset');
     } else {
-      print(formattedMessage); // Fallback for non-terminal environments
+      print(formattedMessage);
     }
   }
 }

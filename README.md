@@ -50,29 +50,51 @@ dart pub get
 
 ### Initialize Chisel
 
-Before interacting with your database, initialize the Chisel instance with your database credentials:
+ For the first step you will need initialize the Chisel instance with your database credentials, so for it create a file (e.g., generate_models.dart) and add this code:
 
 ```dart
 import 'package:chisel/chisel.dart';
-import 'package:postgres/postgres.dart';
 
-void main() async {
-  final chisel = Chisel(
+
+Future<void> main() async {
+
+
+  try {
+    // Initialize Chisel
+    final chisel = Chisel(
     host: 'localhost',
     port: 5432,
     database: 'my_database',
     user: 'my_user',
     password: 'my_password',
-    settings: ConnectionSettings(sslMode: SslMode.require),
-  );
+    settings: const ChiselConnectionSettings(
+        sslMode: SslMode.require,
+      ),
+    );
 
-  await chisel.initialize();
-  print('Chisel initialized successfully!');
+    // Connect to the database and introspect the schema
+    await chisel.initialize();
 
-  // Close the connection when done
-  await chisel.close();
+    // Generate models
+    await chisel.generateModels(forceUpdate: true);
+    
+
+    // Close the connection
+    await chisel.close();
+    
+  } catch (e) {
+    print("Failed to generate models: $e");
+  }
 }
 ```
+
+Once you have done, execute the script:
+
+```dart 
+run generate_models.dart
+```
+
+This will connect to your database, introspect the schema, and generate models automatically.
 
 ---
 ### Generating Models

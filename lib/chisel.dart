@@ -14,7 +14,15 @@ import 'package:chisel/src/model_template.dart';
 import 'package:chisel/src/schema_information.dart';
 import 'package:postgres/postgres.dart';
 
+export 'package:postgres/postgres.dart'
+    show ConnectionSettings, SslMode, ReplicationMode, QueryMode, TypeRegistry;
+
+export 'dart:convert' show Encoding; // Needed for encoding settings
+export 'dart:io' show SecurityContext; // Needed for SSL context
+
 export 'src/chisel_base.dart';
+
+export 'src/chisel_settings.dart' show ChiselConnectionSettings;
 
 class Chisel {
   final String? databaseUrl;
@@ -58,6 +66,7 @@ class Chisel {
   }
 
   Future<void> connect() async {
+    Logger.info("Connecting...", context: getCallerContext());
     if (databaseUrl != null) {
       // Parse databaseUrl and initialize SQLConnection
       final uri = Uri.parse(databaseUrl!);
@@ -96,36 +105,43 @@ class Chisel {
   }
 
   Future<Map<String, dynamic>> _readMetadata(String filePath) async {
-  try {
-    final file = File(filePath);
-    if (!file.existsSync()) return {};
-    final content = await file.readAsString();
-    return jsonDecode(content) as Map<String, dynamic>;
-  } catch (e) {
-    return {}; // Return an empty map if the file cannot be read
+    try {
+      final file = File(filePath);
+      if (!file.existsSync()) return {};
+      final content = await file.readAsString();
+      return jsonDecode(content) as Map<String, dynamic>;
+    } catch (e) {
+      return {}; // Return an empty map if the file cannot be read
+    }
   }
-}
 
 // Helper to write metadata
-Future<void> _writeMetadata(String filePath, Map<String, dynamic> metadata) async {
-  final file = File(filePath);
-  await file.writeAsString(jsonEncode(metadata));
-}
+  Future<void> _writeMetadata(
+      String filePath, Map<String, dynamic> metadata) async {
+    final file = File(filePath);
+    await file.writeAsString(jsonEncode(metadata));
+  }
 
   Future<void> generateModels({bool forceUpdate = false}) async {
+    Logger.info("Generating Models...", context: getCallerContext());
     final metadata = await _readMetadata(_metadataFilePath);
 
-  if (!forceUpdate && metadata['modelsGenerated'] == true) {
-    Logger.info("Models are up-to-date. Use 'forceUpdate: true' in 'generateModels' to regenerate.",
+    if (!forceUpdate && metadata['modelsGenerated'] == true) {
+      Logger.info(
+          "Models are up-to-date. Use 'forceUpdate: true' in 'generateModels' to regenerate.",
           context: getCallerContext());
-    return;
-  }
+      return;
+    }
     String fallbackDirectory = "$defaultOutputDirectory/$database";
     await _ensureDirectoryExists(fallbackDirectory);
 
-    final tables = await introspectSchema();
+    if (forceUpdate || schemaCache.isEmpty) {
+      schemaCache.clear(); // Ensure the cache is cleared if force updating
+      schemaCache.addAll(
+          {for (var table in await introspectSchema()) table.name: table});
+    }
 
-    for (final table in tables) {
+    for (final table in schemaCache.values) {
       final className = _toPascalCase(table.name);
       final fields = table.columns.map((col) {
         final annotations = <String>[];
@@ -168,7 +184,7 @@ Future<void> _writeMetadata(String filePath, Map<String, dynamic> metadata) asyn
     }
 
     metadata['modelsGenerated'] = true;
-  await _writeMetadata(_metadataFilePath, metadata);
+    await _writeMetadata(_metadataFilePath, metadata);
   }
 
   String _convertToUnderscoreCase(String className) {
@@ -202,6 +218,7 @@ Future<void> _writeMetadata(String filePath, Map<String, dynamic> metadata) asyn
   }
 
   Future<List<Table>> introspectSchema({String schema = 'public'}) async {
+    Logger.info("Introspecting...", context: getCallerContext());
     final tables = await getTables(schema: schema);
     List<Table> schemaTables = [];
 
