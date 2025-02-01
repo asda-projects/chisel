@@ -6,7 +6,11 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 0 -->⛰️  Features
 
--  [2025-02-01 06:34]  **storage**:  Replace 'dart:io' for cross-platform compatibility ([ce3ad18](ce3ad18095f0c083039fb6a69040cc2e72d99022))
+-  [2025-02-01 06:34]  **storage**:  Replace 'dart:io' for cross-platform compatibility ([ecd2a58](ecd2a5879354448690306d30b1cbd95b2614f04f))
+
+### <!-- 1 -->🐛 Bug Fixes
+
+-  [2025-02-01 06:59]  Fixed non pushed correct chisel changes at ecd2a58 ([6032658](6032658a58a4ae491e9ec1e6446a33b1e0dd3914))
 
 ### <!-- 7 -->⚙️ Miscellaneous Tasks
 
