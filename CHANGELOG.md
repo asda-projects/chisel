@@ -4,9 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [unreleased]
 
+### <!-- 0 -->⛰️  Features
+
+-  [2025-02-01 06:34]  **storage**:  Replace 'dart:io' for cross-platform compatibility ([ce3ad18](ce3ad18095f0c083039fb6a69040cc2e72d99022))
+
 ### <!-- 7 -->⚙️ Miscellaneous Tasks
 
--  [2025-02-01 04:54]  Fixed merge in development that came from main ([4eeee49](4eeee4953d7da9990f58afda382910402c65fe35))
+-  [2025-02-01 04:54]  Fixed merge in development that came from main ([ac124c7](ac124c7953d9b384351e701d5978acc5650e0e41))
 
 ## [1.2.2] - 2025-01-30
 
