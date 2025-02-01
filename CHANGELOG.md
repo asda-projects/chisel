@@ -6,11 +6,12 @@ All notable changes to this project will be documented in this file.
 
 ### <!-- 0 -->⛰️  Features
 
+-  [2025-02-01 11:13]  Added test for web env ([9e38f19](9e38f19e626bbb1acffe9b44abd9ae6e99128b31))
 -  [2025-02-01 06:34]  **storage**:  Replace 'dart:io' for cross-platform compatibility ([ecd2a58](ecd2a5879354448690306d30b1cbd95b2614f04f))
 
 ### <!-- 1 -->🐛 Bug Fixes
 
--  [2025-02-01 06:59]  Fixed non pushed correct chisel changes at ecd2a58 ([6032658](6032658a58a4ae491e9ec1e6446a33b1e0dd3914))
+-  [2025-02-01 06:59]  Fixed non pushed correct chisel changes at ecd2a58 ([60145cb](60145cba71527e554348bcbe315c0b629462bdd3))
 
 ### <!-- 7 -->⚙️ Miscellaneous Tasks
 
